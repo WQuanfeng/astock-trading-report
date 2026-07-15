@@ -1,85 +1,73 @@
-# Screening rules
+# 筛选规则
 
-Run **low active leader** only after the user explicitly names a sector. Use
-that sector's members from `a-stock-data`; do not replace it with a guessed
-concept.
+仅当用户明确指定板块时运行**低位活跃龙头**。使用 `a-stock-data` 返回的该板块
+成员；不得猜测或替换为其他概念。
 
-Run **early trend** across the eligible A-share universe and do not require a
-sector. If `a-stock-data` cannot establish full-universe coverage, disclose the
-actual universe used and do not describe the result as a market-wide ranking.
+**上升初段**在符合条件的 A 股范围内筛选，不要求板块。若 `a-stock-data`
+不能建立全市场覆盖，必须披露实际筛选范围，且不得称结果为全市场排名。
 
-## Shared exclusion rules
+## 共同排除规则
 
-Exclude or explicitly flag stocks when available data shows:
+数据可得时，排除或明确标记：
 
-- ST/other special-treatment or delisting-risk status;
-- insufficient trading history for the requested horizon;
-- suspended or severely illiquid trading;
-- imminent material unlocking, reduction, regulatory, or financial-risk events;
-- missing data that prevents a required criterion from being evaluated.
+- ST/其他特别处理或退市风险状态；
+- 不满足目标周期所需交易历史；
+- 停牌或严重缺乏流动性；
+- 临近重大解禁、减持、监管或财务风险事件；
+- 无法评价必要条件的数据缺失。
 
-Return at most two candidates per mode. Returning none is valid.
+每种模式最多返回两只候选；返回零只完全有效。
 
-## Low active leader candidates
+## 低位活跃龙头候选
 
-This is a **low-position active-leader watch pool**, not a long-term buy list.
+这是**低位活跃龙头观察池**，不是长期买入名单。
 
-### Evidence to collect
+### 需收集的证据
 
-- At least one to two years of available price, limit-up, turnover, and sector
-  performance evidence.
-- Repeated historical limit-up or other objectively available active-trading
-  evidence.
-- Historical sector-strength evidence during the stock's strong periods.
-- Recent three-to-six-month activity and a current activation signal, such as
-  meaningful price/volume expansion relative to its own recent baseline.
-- Current two-year price position/drawdown or other available low-position
-  measure.
-- Current financial snapshot, cash-flow/earnings condition where available, and
-  material risk disclosures.
+- 一至两年内可获得的价格、涨停、换手和板块表现证据。
+- 多次历史涨停或其他可客观获取的活跃交易证据。
+- 该股强势阶段的历史板块强势证据。
+- 近三至六个月的活跃度，以及当前激活信号，例如相对自身近期基准存在有意义
+  的价量扩张。
+- 当前两年价格位置/回撤，或其他可得的低位指标。
+- 当前财务快照、可得时的现金流/盈利情况及重大风险披露。
 
-### Inclusion logic
+### 入选逻辑
 
-Describe a stock as having a **historical leadership proxy**, never as a proven
-sector leader, unless the collected source directly establishes that fact. The
-proxy must combine:
+除非数据源直接证实，不得将股票称为已证明的板块龙头；应称其具有**历史领导力
+代理信号**。该代理信号必须同时包含：
 
-1. repeated historical active-trading evidence;
-2. strong relative performance during a documented sector-strength period; and
-3. adequate current liquidity.
+1. 重复的历史活跃交易证据；
+2. 有记录板块强势期内的较强相对表现；
+3. 足够的当前流动性。
 
-Require both a historical qualification (the first three criteria above) and a
-current activation/low-position condition. Do not treat a low but inactive
-stock as a candidate. Explain every included and excluded criterion in the
-HTML.
+还必须同时满足历史资格（上述前三项）以及当前激活/低位条件。不得把低位但不
+活跃的股票视为候选。HTML 中解释每项入选与排除条件。
 
-## Early-trend candidates
+## 上升初段候选
 
-This is a **trend-continuation watch pool**, not a probability claim.
+这是**趋势延续观察池**，不是概率宣称。
 
-Screen the eligible market-wide universe. Sector strength remains a confirmation
-factor for each stock, but is not a user-input filter or a prerequisite.
+在符合条件的全市场 A 股范围内筛选。板块强弱仅是每只股票的趋势确认因素，
+不是用户输入过滤器或前置条件。
 
-### Evidence to collect
+### 需收集的证据
 
-- Daily K-line and available moving-average/return indicators.
-- Whether the current rise has included a limit-up.
-- Short- and medium-window returns to test whether the move is already extended.
-- Volume/turnover behavior, sector confirmation, available flow context, and
-  upcoming material events.
+- 日 K 线及可得的均线/收益指标。
+- 当前上涨阶段是否出现过涨停。
+- 短期和中期涨幅，用于判断趋势是否已过度延伸。
+- 成交量/换手行为、板块确认、可得资金背景和临近重大事件。
 
-### Inclusion logic
+### 入选逻辑
 
-Require all of the following, subject to available data:
+在数据可得前提下，必须同时满足：
 
-1. price above rising medium-term trend measures;
-2. a positive but not clearly extended recent rise;
-3. no limit-up in the identified current rising phase;
-4. non-blow-off participation/volume behavior;
-5. sector conditions that do not contradict the trend; and
-6. no material near-term event risk.
+1. 价格位于上行的中期趋势指标之上；
+2. 近期为正涨幅，但未明显过度延伸；
+3. 已识别上涨阶段内没有涨停；
+4. 参与度/成交量不是加速衰竭式放大；
+5. 板块条件不与趋势相矛盾；
+6. 没有重大近期事件风险。
 
-For every candidate, show why it passed and the specific condition that would
-invalidate the setup. Do not describe any candidate as having a "very high"
-probability unless an explicitly disclosed, separate historical test supports
-that phrase.
+对每只候选说明其通过原因和具体失效条件。除非存在单独披露的历史测试，不得
+使用“极高”概率之类的表述。

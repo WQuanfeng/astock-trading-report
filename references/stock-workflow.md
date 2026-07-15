@@ -1,36 +1,33 @@
-# Stock daily workflow
+# 个股每日工作流
 
-## Collect with a-stock-data
+## 使用 a-stock-data 收集
 
-For the requested stock and the selected completed trading day, collect:
+对用户请求的股票和选定已完成交易日，收集：
 
-- Latest quote and daily K-line history with an explicit adjustment basis.
-- Volume, turnover, relative position, moving-average state, and recent price
-  performance using data/indicators already provided by `a-stock-data`.
-- Industry/concept membership and the sector's same-day strength.
-- Same-day and recent announcements, company replies, and news. Preserve
-  original source, time, and whether it is an official disclosure.
-- Available fund flow, dragon-tiger data, major unlocking/reduction events, and
-  material risk information.
-- T-1 context for this exact stock, when its report exists.
+- 最新报价和日 K 线历史，并明确复权口径。
+- 使用 `a-stock-data` 已提供的数据/指标获得的成交量、换手率、相对位置、
+  均线状态和近期价格表现。
+- 行业/概念归属及板块当日强弱。
+- 当日及近期公告、公司回复和新闻；保留原始来源、时间及是否为正式披露。
+- 可得资金流、龙虎榜、重大解禁/减持事件和重要风险信息。
+- 该股票已存在时对应的 T-1 context。
 
-## Interpret in this order
+## 按以下顺序解读
 
-1. Separate official facts from media interpretation.
-2. Explain price/volume behavior in the context of its sector and market regime.
-3. Identify evidence that supports and contradicts continuation.
-4. Verify whether yesterday's stated trigger or invalidation condition occurred.
-5. Produce a conditional next-day plan rather than a direct buy/sell call.
+1. 区分正式事实与媒体解读。
+2. 在板块与市场状态背景下解释量价行为。
+3. 识别支持趋势延续和反对趋势延续的证据。
+4. 验证昨日记录的触发条件或失效条件是否发生。
+5. 生成条件化次日计划，不得直接给出买卖指令。
 
-## Required output for each stock
+## 每只股票必须输出
 
-- Status: `observe`, `eligible if triggered`, `not suitable to initiate`, or
-  `insufficient data`.
-- Three or fewer supporting facts, with dates and sources.
-- At least one contrary fact or unresolved risk.
-- A precise trigger condition; it may be a price/volume/sector condition, but
-  must be explicitly conditional.
-- A precise invalidation or no-entry condition.
-- Relevant event, liquidity, sector, and market-regime risks.
+- 状态：`observe`、`eligible if triggered`、`not suitable to initiate` 或
+  `insufficient data`。
+- 至多三项支持事实，并写明日期与来源。
+- 至少一项反面事实或未解除风险。
+- 精确的触发条件；可以是价格/量能/板块条件，但必须是条件化表述。
+- 精确的失效或不介入条件。
+- 相关事件、流动性、板块和市场状态风险。
 
-Never use an announcement headline alone to infer a durable financial impact.
+不得仅凭公告标题推断其会产生长期财务影响。

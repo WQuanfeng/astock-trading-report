@@ -1,33 +1,30 @@
-# Daily workflow
+# 每日综合工作流
 
-Use this reference only for the `daily` workflow. Assemble the report
-selectively; do not load every component reference by default.
+仅在 `daily` 工作流中读取本文件。按需组装报告，不得默认加载所有组件
+reference。
 
-## Load only what is needed
+## 仅加载所需内容
 
-1. Always read `market-workflow.md` and collect its market checklist.
-2. Read `stock-workflow.md` only when the user supplied one or more watchlist
-   stocks.
-3. Read the **Early-trend candidates** section of `screening-rules.md` when
-   running the market-wide early-trend screen.
-4. Read the **Low active leader candidates** section of `screening-rules.md`
-   only when the user supplied a sector.
-5. Read `report-contract.md` before generating HTML. The core Skill already
-   requires `prior-report-rules.md` when a T-1 report is present.
+1. 始终读取 `market-workflow.md` 并收集其大盘清单。
+2. 仅当用户提供一只或多只自选股时读取 `stock-workflow.md`。
+3. 运行全市场上升初段筛选时，仅阅读 `screening-rules.md` 的
+   **上升初段候选**部分。
+4. 仅当用户指定板块时，阅读 `screening-rules.md` 的
+   **低位活跃龙头候选**部分。
+5. 生成 HTML 前读取 `report-contract.md`；存在 T-1 报告时，核心 Skill
+   已要求读取 `prior-report-rules.md`。
 
-## Sequence
+## 执行顺序
 
-1. Resolve the completed trading date and validate requested inputs.
-2. Collect market data and establish data quality.
-3. Read `prior-report-rules.md`, then verify the matching T-1 daily context when available.
-4. Run watchlist analysis only for supplied symbols.
-5. Run the market-wide early-trend screen. State the actual coverage.
-6. Run the low-active-leader screen only for a user-specified sector; otherwise
-   mark that sub-section `not run: sector not specified`.
-7. Generate one report with every skipped section and quality limitation made
-   explicit.
+1. 解析已完成交易日并校验输入。
+2. 收集大盘数据并确定数据质量。
+3. 读取 `prior-report-rules.md`，随后在可用时验证匹配的 T-1 `daily`
+   context。
+4. 仅对用户提供的自选股运行个股分析。
+5. 运行全市场上升初段筛选，并披露实际覆盖范围。
+6. 仅对用户指定板块运行低位活跃龙头筛选；未指定时将该区块标为
+   `not run: sector not specified`。
+7. 生成一份报告，明确所有跳过区块和数据质量限制。
 
-Determine screen eligibility from the screening rules and collected evidence
-before writing market/stock narrative. Do not add or remove candidates because
-of earlier qualitative conclusions; use the market regime only to describe the
-candidate's trading environment.
+先依据筛选规则和收集到的证据确定候选资格，再撰写大盘/个股叙述。不得因
+前文的定性结论增删候选；市场状态只能用于说明候选的交易环境。

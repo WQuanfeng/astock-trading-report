@@ -1,49 +1,40 @@
-# Market daily workflow
+# 大盘每日工作流
 
-## Collect with a-stock-data
+## 使用 a-stock-data 收集
 
-For the selected completed trading day, collect:
+对选定的已完成交易日，收集：
 
-- Major indices: Shanghai Composite, Shenzhen Component, ChiNext, CSI 300, and
-  any index materially relevant to the user-specified sector.
-- Index returns, intraday range where available, turnover, and T-1 turnover
-  change.
-- Rising/falling stock counts, limit-up count, limit-down count, broken-board
-  count/rate, highest consecutive-board height, and prior limit-up performance;
-  collect each available metric's T-1 change and first-board/continuation-board
-  structure when available.
-- Leading and lagging industries/concepts, including breadth instead of only
-  their top return; compare their rank and breadth with T-1 to distinguish
-  continuation from one-day rotation.
-- Material market-wide news, policy releases, and macro events, with source and
-  publication time.
-- Available flow data. Treat it as supporting context, not a standalone signal.
+- 上证综指、深证成指、创业板指、沪深 300，以及与用户指定板块显著相关的
+  指数。
+- 指数涨跌、可获得时的日内振幅、成交额及其 T-1 变化。
+- 上涨/下跌家数、涨停数、跌停数、炸板数量/比例、最高连板高度、昨日涨停
+  表现；对每项可获得指标收集 T-1 变化，并在可用时收集首板/连板结构。
+- 领涨和领跌行业/概念，不只看最高涨幅，也看广度；比较其与 T-1 的排名和
+  广度，以区分延续与一日轮动。
+- 重要市场新闻、政策发布和宏观事件，并保留来源和发布时间。
+- 可获得的资金数据；仅作辅助，不得单独作为结论依据。
 
-## Interpret in this order
+## 按以下顺序解读
 
-1. **Trend and liquidity**: explain T-1 changes in index direction, turnover,
-   and broad participation; do not rely on absolute values alone.
-2. **Breadth and sentiment**: advancing/declining counts, limit-up ecosystem,
-   broken-board rate, and concentration of gains.
-3. **Leadership**: whether the strongest themes held, expanded, rotated, or
-   weakened during the session.
-4. **Risk events**: overnight-sensitive policy, global, or disclosure risks.
-5. **T-1 verification**: verify yesterday's stated scenarios and conditions.
+1. **趋势与流动性**：解释指数方向、成交额和市场广度相对 T-1 的变化，
+   不得只依赖绝对值。
+2. **广度与情绪**：上涨/下跌家数、涨停生态、炸板率和上涨集中度。
+3. **主线**：最强主题是在延续、扩散、轮动还是走弱。
+4. **风险事件**：可能影响隔夜的政策、全球市场或披露风险。
+5. **T-1 验证**：验证昨日记录的情景和条件。
 
-## Required output
+## 必须输出
 
-State a market regime, then exactly three conditional next-day scenarios:
+先给出市场状态，再恰好给出三种次日条件化情景：
 
-| Scenario | Conditions to observe | Interpretation | New-position environment |
+| 情景 | 需观察的条件 | 解读 | 新开仓环境 |
 | --- | --- | --- | --- |
-| Risk-on | Concrete opening, volume, breadth, and leadership conditions | Why the thesis is supported | Observe selectively / eligible if triggered |
-| Neutral | Concrete mixed conditions | Why a range or rotation is likely | Only high-quality setups |
-| Risk-off | Concrete deterioration conditions | Why risk should be reduced | Not suitable to initiate |
+| Risk-on | 具体的开盘、量能、广度和主线条件 | 为什么支持该判断 | 选择性观察 / 条件满足后可介入 |
+| Neutral | 具体的混合条件 | 为什么可能震荡或轮动 | 仅关注高质量形态 |
+| Risk-off | 具体的恶化条件 | 为什么应降低风险 | 不适合新开仓 |
 
-The report must identify the first 30–60 minute observations that distinguish
-the scenarios. Each scenario needs at least one measurable trigger with an
-explicit comparison baseline, such as prior-day same-window turnover or a
-recent same-window median. Apply this precedence: classify `risk-off` first;
-classify `risk-on` only when all of its stated triggers hold and no risk-off
-condition holds; otherwise classify `neutral`. Do not translate a scenario into
-an instruction to place an order.
+报告必须给出区分情景的开盘后 30–60 分钟观察项。每个情景至少包含一个可衡量
+触发条件及明确比较基准，例如前一交易日同时间段成交额或近期同时间段中位数。
+按以下优先级判断：先判 `risk-off`；仅当所有 `risk-on` 触发条件满足且没有
+`risk-off` 条件时判为 `risk-on`；其他情况均为 `neutral`。不得把情景转化为
+下单指令。
