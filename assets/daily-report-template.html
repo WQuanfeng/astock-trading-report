@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{REPORT_TITLE}}</title>
+  <style>
+    :root { color-scheme: light; --ink:#172033; --muted:#5d6779; --line:#d9e0ea; --bg:#f5f7fb; --card:#fff; --good:#0f8a5f; --warn:#a66300; --bad:#c43b45; --accent:#365fc4; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif; }
+    main { max-width:1180px; margin:0 auto; padding:28px 20px 56px; }
+    header, section { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:22px; margin:0 0 16px; }
+    h1,h2,h3 { line-height:1.3; margin:0 0 12px; } h1 { font-size:27px; } h2 { font-size:19px; } h3 { font-size:16px; }
+    .meta,.muted { color:var(--muted); } .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; }
+    .card { border:1px solid var(--line); border-radius:9px; padding:14px; } .tag { display:inline-block; border-radius:999px; padding:2px 9px; font-size:12px; font-weight:650; }
+    .good { color:var(--good); background:#e7f6ef; } .warn { color:var(--warn); background:#fff2dc; } .bad { color:var(--bad); background:#fdebec; } .info { color:var(--accent); background:#eaf0ff; }
+    table { width:100%; border-collapse:collapse; margin-top:10px; } th,td { padding:9px; border-bottom:1px solid var(--line); vertical-align:top; text-align:left; } th { background:#f7f9fc; }
+    ul { padding-left:20px; } .section-note { border-left:3px solid var(--accent); padding-left:12px; color:var(--muted); } .svg-chart { width:100%; height:auto; display:block; }
+    @media print { body { background:#fff; } main { max-width:none; padding:0; } header,section { break-inside:avoid; box-shadow:none; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>{{REPORT_TITLE}}</h1>
+      <p class="meta">交易日：{{TRADE_DATE}} · 生成时间：{{GENERATED_AT}} · 报告类型：{{REPORT_TYPE}}</p>
+      <p>{{DATA_QUALITY_STATUS}}</p>
+    </header>
+
+    <section id="executive-view"><h2>收盘结论与次日交易环境</h2>{{EXECUTIVE_VIEW}}</section>
+    <section id="previous-verification"><h2>昨日计划验证</h2>{{PREVIOUS_PLAN_VERIFICATION}}</section>
+    <section id="market"><h2>大盘结构与次日情景</h2>{{MARKET_ANALYSIS}}</section>
+    <section id="stocks"><h2>个股交易计划</h2>{{STOCK_ANALYSIS}}</section>
+    <section id="sector-screen"><h2>指定板块候选池</h2>{{SECTOR_SCREEN}}</section>
+    <section id="risks"><h2>风险、失效条件与数据限制</h2>{{RISKS_AND_LIMITATIONS}}</section>
+    <section id="provenance"><h2>数据来源与口径</h2>{{PROVENANCE_TABLE}}</section>
+
+    <script id="astock-report-context" type="application/json">
+{{REPORT_CONTEXT_JSON}}
+    </script>
+  </main>
+</body>
+</html>
