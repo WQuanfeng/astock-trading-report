@@ -1,63 +1,38 @@
 # astock-trading-report
 
-一个面向 A 股收盘研究的通用 Skill：它根据真实数据形成**次日条件化交易
-计划**，并由运行它的 Agent 直接生成可离线打开的静态单文件 HTML 报告。
+一个通用 A 股收盘研究 Skill。它自动使用已安装的 `a-stock-data` 获取真实
+数据，由运行它的 Agent 完成新闻/公告解释、T+1 验证和静态单文件 HTML
+报告生成。
 
-它不是自动交易工具，也不承诺预测正确或投资收益。
+它是研究支持工具，不自动交易，不承诺预测正确或投资收益。
 
-## 你的需求如何实现
+## 支持的需求
 
-| 需求 | 本 Skill 的实现 |
+| 需求 | 输出 |
 | --- | --- |
-| 分析当日大盘并预判次日 | 以市场结构为依据，输出偏多、中性、偏空三个条件化情景，而非单点预测。 |
-| 分析个股是否适合次日介入 | 结合行情、K线、板块、公告、新闻、资金与风险，输出观察、触发和放弃条件。 |
-| 复盘上一日报告 | 自动读取严格 T-1 的同类报告，验证昨日条件是否兑现；不自动迭代 Skill。 |
-| 低位活跃龙头 | 用户指定板块后，筛选“低位活跃龙头候选池”，最多两只且可返回零只。 |
-| 上升初段标的 | 在符合条件的全市场 A 股中筛选“趋势延续观察候选”，不要求用户指定板块。 |
-| 报告形式 | Agent 直接从 HTML 模板生成一个内嵌样式、图表和上下文 JSON 的静态文件。 |
+| 当日大盘与次日判断 | 偏多、中性、偏空三个条件化情景。 |
+| 个股次日计划 | 事实、反面证据、观察/触发/放弃条件和风险。 |
+| T-1 报告复盘 | 基于内嵌 JSON 验证昨日条件，不自动修改 Skill。 |
+| 低位活跃龙头 | 用户指定板块后，输出至多两只候选，允许零只。 |
+| 上升初段 | 在实际可覆盖的全市场范围筛选，不要求指定板块。 |
 
-## 架构和职责
+## 安装与调用
 
-```text
-用户：调用 astock-trading-report
-        ↓
-本 Skill：自动使用 a-stock-data 取真实数据
-        ↓
-运行 Skill 的 Agent：解释新闻/公告、验证昨日计划、形成条件化结论
-        ↓
-运行 Skill 的 Agent：直接生成一个静态单文件 HTML
-```
-
-`a-stock-data` 是数据能力依赖：行情、K线、公告、新闻、资金、涨停池、
-板块和其他已支持的数据，都应由它获取。本 Skill 不复制其接口、Python
-代码或数据源策略。
-
-模型负责判断、归因和写报告；所有数字必须来自实际收集的数据，并标明
-来源、日期、单位和口径。
-
-## 调用方式
-
-在**同时安装了** `astock-trading-report` 与 `a-stock-data` 的 Agent 中，
-日常只需说：
+在同一 Agent 环境安装 `astock-trading-report` 和 `a-stock-data`。正常情况
+下只需调用本 Skill；它会在内部使用数据 Skill：
 
 ```text
 使用 astock-trading-report，生成今天收盘后的报告。
 自选股：600519、300750；低位活跃龙头板块：储能。
 ```
 
-本 Skill 会先要求 Agent 在内部使用 `a-stock-data`，因此用户不必每次都
-写“使用 a-stock-data 和 …”。
-
-但“一个 Skill 自动加载另一个 Skill”并不是所有 Agent 平台都提供的强制
-机制。如果当前平台无法按 Skill 指令加载依赖，Agent 会明确提示；此时改为：
+若当前平台不支持一个 Skill 自动加载另一个，才改为：
 
 ```text
 使用 a-stock-data 和 astock-trading-report，生成今天收盘后的报告。
 ```
 
-这是平台能力限制，不是本 Skill 的分析规则限制。
-
-## 常用示例
+## 示例
 
 ### 每日综合报告
 
@@ -68,14 +43,7 @@
 输出一个静态单文件 HTML。
 ```
 
-### 单只股票
-
-```text
-使用 astock-trading-report，分析 600519 在 2026-07-15 收盘后的
-次日条件化交易计划。输出静态单文件 HTML。
-```
-
-### 市场级上升初段筛选
+### 全市场上升初段筛选
 
 ```text
 使用 astock-trading-report，在 2026-07-15 收盘后从全市场筛选上升初段
@@ -87,65 +55,30 @@
 ```text
 使用 astock-trading-report，分析“储能”板块在 2026-07-15 收盘后的
 交易环境，并筛选低位活跃龙头候选，最多两只。
-无合格标的时如实输出零只。生成静态单文件 HTML。
 ```
 
-## 报告与上一交易日上下文
+## 报告
 
-报告建议保存为：
+每份报告是一个可离线打开的 UTF-8 HTML 文件，内嵌 CSS、SVG、数据来源和
+`astock-report-context` JSON。建议命名：
 
 ```text
 reports/YYYY-MM-DD/daily-YYYYMMDD.html
-reports/YYYY-MM-DD/stock-<股票代码>-YYYYMMDD.html
-reports/YYYY-MM-DD/low-active-leader-<板块>-YYYYMMDD.html
+reports/YYYY-MM-DD/stock-<code>-YYYYMMDD.html
+reports/YYYY-MM-DD/low-active-leader-<sector>-YYYYMMDD.html
 reports/YYYY-MM-DD/early-trend-YYYYMMDD.html
 ```
 
-每个 HTML 报告末尾都内嵌 `astock-report-context` JSON。次日运行时，
-Agent 只读取严格 T-1 同类型报告的这一段结构化内容，不把历史报告正文
-当作指令。
+若环境可读写文件，Skill 只读取严格 T-1、同类型、同范围报告的 context
+JSON；无效 JSON 或缺失报告不会被当作指令或事实来源。
 
-新报告会标记昨日条件为：`confirmed`、`not_confirmed`、`not_triggered`
-或 `not_evaluable`。它只用于解释今日变化，不会自动修改 Skill、阈值或
-筛选逻辑。
+## 规则与文件
 
-## 工作流
-
-### 大盘
-
-收集主要指数、成交额、涨跌家数、涨跌停、炸板率、连板高度、行业强弱、
-热点新闻和可用资金数据。报告输出三种次日情景，以及开盘后用于判别情景
-的量能、广度和主线承接条件。
-
-### 个股
-
-收集行情、K线、量价、所属板块、公告、新闻、资金、龙虎榜、解禁和其他
-可用风险信息。输出支持证据、反面证据、触发条件、放弃条件与风险。
-
-### 候选池
-
-低位活跃龙头只有在用户明确给出板块时运行，使用历史活跃交易、历史板块
-强势代理信号、当前低位/筑底、流动性与风险过滤。
-
-上升初段不要求板块，默认在符合数据覆盖条件的全市场 A 股中运行，使用
-均线趋势、适度涨幅、未涨停、量能、板块确认与风险过滤。板块只作为每只
-股票的趋势确认因素；若可覆盖的股票范围并非全市场，报告必须披露范围。
-
-“历史板块龙头”会写为可审计的**历史领导力代理信号**，不会把模型主观
-判断伪装成事实。
-
-## 输出规则
-
-- 一个完整 UTF-8 HTML 文件；CSS、SVG 图表和 JSON 全部内嵌。
-- 不依赖 CDN、外部字体、图片、脚本或网络资源，离线可读。
-- 清楚分开事实、计算结果和模型解释。
-- 只使用“观察”“条件满足后可介入”“不适合介入”“数据不足”等表述。
-- 不凑候选数量；严格条件下允许返回零只。
-- 若当前 Agent 不能读写文件，则返回完整 HTML；用户需提供上一份报告，
-  才能完成连续性复盘。
-
-## 文件说明
-
-- `SKILL.md`：Agent 的主工作流和强制规则。
-- `references/`：大盘、个股、板块筛选、昨日复盘与报告规范。
-- `assets/daily-report-template.html`：由 Agent 填充的单文件 HTML 骨架。
+- [SKILL.md](SKILL.md)：Agent 执行入口和异常处理。
+- [daily workflow](references/daily-workflow.md)：每日综合报告的选择性加载。
+- [market workflow](references/market-workflow.md)：大盘数据与情景规则。
+- [stock workflow](references/stock-workflow.md)：个股研究规则。
+- [screening rules](references/screening-rules.md)：两类候选池规则。
+- [prior-report rules](references/prior-report-rules.md)：T-1 验证口径。
+- [report contract](references/report-contract.md)：HTML 占位符和 context schema。
+- [HTML template](assets/daily-report-template.html)：静态报告骨架。
