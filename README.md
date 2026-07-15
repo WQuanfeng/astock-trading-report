@@ -32,6 +32,9 @@
 使用 a-stock-data 和 astock-trading-report，生成今天收盘后的报告。
 ```
 
+`daily` 默认生成大盘和用户指定自选股的研究；只有明确要求时才运行全市场
+`early-trend` 筛选。`low-active-leader` 始终需要用户指定板块。
+
 ## 示例
 
 ### 每日综合报告

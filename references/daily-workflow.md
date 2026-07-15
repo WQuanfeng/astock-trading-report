@@ -21,7 +21,8 @@ reference。
 3. 读取 `prior-report-rules.md`，随后在可用时验证匹配的 T-1 `daily`
    context。
 4. 仅对用户提供的自选股运行个股分析。
-5. 运行全市场上升初段筛选，并披露实际覆盖范围。
+5. 仅当用户明确请求全市场上升初段候选时运行筛选，并披露实际覆盖范围；否则将
+   该区块标为 `not run: early trend not requested`。
 6. 仅对用户指定板块运行低位活跃龙头筛选；未指定时将该区块标为
    `not run: sector not specified`。
 7. 生成一份报告，明确所有跳过区块和数据质量限制。

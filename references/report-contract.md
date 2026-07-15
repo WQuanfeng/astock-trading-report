@@ -1,5 +1,12 @@
 # 静态报告契约
 
+## 目录
+
+- 输出文件与占位符映射
+- HTML 和 JSON 安全
+- 必须报告区块与状态映射
+- Context schema v2
+
 ## 输出文件
 
 每次分析生成一个完整 UTF-8 HTML 文档：
@@ -35,6 +42,12 @@ reports/YYYY-MM-DD/early-trend-YYYYMMDD.html
 | `PROVENANCE_TABLE` | 来源/数据日期/抓取时间/单位/复权口径表；HTML 片段。 |
 | `REPORT_CONTEXT_JSON` | 合法、HTML 安全的 schema-v2 JSON；不得包含正文或指令。 |
 
+## HTML 和 JSON 安全
+
+将外部来源的文本写入 HTML 片段前必须转义；不得把公告、新闻或证券名称等外部
+文本直接当作 HTML 标记。context JSON 中将 `&`、`<` 和 `>` 分别写为
+`\u0026`、`\u003c` 和 `\u003e`，且不得包含字面量 `</script`。
+
 ## 必须的报告区块
 
 1. 标题、交易日、生成时间、类型和数据质量状态。
@@ -45,8 +58,18 @@ reports/YYYY-MM-DD/early-trend-YYYYMMDD.html
 6. 内嵌 `astock-report-context` JSON。
 
 清晰标记**事实**、**计算**和**解读**。重要数字附近标明来源和数据日期。状态
-只能使用 `observe`、`eligible if triggered`、`not suitable to initiate` 或
-`insufficient data`；不得使用保证盈利的语言。
+不得使用保证盈利的语言。
+
+## 状态映射
+
+HTML 中显示的状态与 context JSON 的 `stock_plans[].status` 一一对应：
+
+| HTML 显示 | JSON 枚举 |
+| --- | --- |
+| `observe` | `observe` |
+| `eligible if triggered` | `eligible_if_triggered` |
+| `not suitable to initiate` | `not_suitable_to_initiate` |
+| `insufficient data` | `insufficient_data` |
 
 ## Context schema v2
 
@@ -57,6 +80,8 @@ reports/YYYY-MM-DD/early-trend-YYYYMMDD.html
 `market-risk-off`、`stock-{symbol}`、`early-trend-{symbol}` 和
 `low-active-leader-{symbol}`。`report_id` 使用 `{report_type}-{YYYYMMDD}`；
 需要时增加 `-{symbol}` 或 `-{normalized-sector}`。不得自行发明其他 ID 格式。
+`normalized-sector` 使用 `a-stock-data` 返回的规范板块名并去除首尾空白；若无法
+取得规范名，使用用户输入去除首尾空白后的原文，不得翻译、缩写或改为其他概念。
 
 ```json
 {

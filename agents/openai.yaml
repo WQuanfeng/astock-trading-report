@@ -1,0 +1,4 @@
+interface:
+  display_name: "A股交易计划报告"
+  short_description: "基于真实数据生成A股收盘研究、次日条件化交易计划和静态HTML报告"
+  default_prompt: "使用 $astock-trading-report 生成基于真实A股数据的收盘研究和静态HTML报告。"
