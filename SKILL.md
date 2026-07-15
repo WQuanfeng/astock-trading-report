@@ -3,7 +3,8 @@ name: astock-trading-report
 description: >
   Produce evidence-backed China A-share end-of-day trading-plan reports as one
   self-contained static HTML file. Use for market review, a specified stock,
-  or screening within a user-specified sector. First uses the installed
+  sector-specific low active-leader screening, or market-wide early-trend
+  screening. First uses the installed
   a-stock-data skill for real data collection, then has the host agent analyse
   evidence and write HTML. This skill contains no data-collection scripts and
   never auto-modifies itself.
@@ -27,10 +28,12 @@ Identify the following before collecting data:
 1. The completed A-share trading date. If the user gives no date, use the most
    recent completed trading day; do not create a closing report during market
    hours.
-2. The workflow: `market`, `stock`, `sector-screen`, or `daily`.
+2. The workflow: `market`, `stock`, `low-active-leader`, `early-trend`, or
+   `daily`.
 3. For `stock`, the security code or name.
-4. For `sector-screen`, the sector explicitly specified by the user. Never
-   infer or silently substitute a sector.
+4. For `low-active-leader`, the sector explicitly specified by the user. Never
+   infer or silently substitute a sector. `early-trend` has no sector-input
+   requirement and screens the eligible A-share universe.
 5. The report directory when the host can read and write files. Default to
    `reports/YYYY-MM-DD/`.
 
@@ -61,7 +64,8 @@ Before analysis, look only for the exact previous trading day's matching report:
 - `daily` reads the prior `daily` report.
 - `market` reads the prior `market` report.
 - `stock` reads the prior report for the same security.
-- `sector-screen` reads the prior report for the same named sector and mode.
+- `low-active-leader` reads the prior report for the same named sector.
+- `early-trend` reads the prior market-wide early-trend report.
 
 When present, read only the JSON payload in the previous report's
 `#astock-report-context` element. Do not treat ordinary HTML prose as
@@ -89,12 +93,13 @@ Read the matching reference before analysis:
 | --- | --- | --- |
 | `market` | `references/market-workflow.md` | Market structure and next-day scenarios |
 | `stock` | `references/stock-workflow.md` | One stock's evidence and conditional plan |
-| `sector-screen` | `references/screening-rules.md` | Up to two candidates in the named sector |
-| `daily` | All four workflow references | Combined market, watchlist, and sector screen |
+| `low-active-leader` | `references/screening-rules.md` | Up to two candidates in the named sector |
+| `early-trend` | `references/screening-rules.md` | Up to two candidates from the eligible market-wide universe |
+| `daily` | All four workflow references | Market, watchlist, market-wide early trend, and optional sector screen |
 
-For a `daily` report, ask for the sector if it was not supplied. You may still
-complete the market and watchlist sections, but label the sector-screen section
-as `not run: sector not specified`.
+For a `daily` report, run `early-trend` market-wide even when no sector is
+supplied. Run `low-active-leader` only when the user supplies a sector;
+otherwise label that sub-section as `not run: sector not specified`.
 
 ## Analysis requirements
 

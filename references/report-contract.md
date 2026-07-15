@@ -8,7 +8,8 @@ Create one complete UTF-8 HTML document per analysis. Suggested names:
 reports/YYYY-MM-DD/daily-YYYYMMDD.html
 reports/YYYY-MM-DD/market-YYYYMMDD.html
 reports/YYYY-MM-DD/stock-<code>-YYYYMMDD.html
-reports/YYYY-MM-DD/sector-<sector>-<mode>-YYYYMMDD.html
+reports/YYYY-MM-DD/low-active-leader-<sector>-YYYYMMDD.html
+reports/YYYY-MM-DD/early-trend-YYYYMMDD.html
 ```
 
 The report must be readable offline. All styles and SVG charts are inline. Do
@@ -21,7 +22,8 @@ not reference external assets, scripts, stylesheets, fonts, or network URLs.
 3. Previous-plan verification, or an explicit `T-1 report unavailable` notice.
 4. Market evidence and three scenarios.
 5. Stock analysis for every requested/watchlist stock.
-6. Sector screen results when a sector was supplied.
+6. Market-wide early-trend results and low-active-leader results when a sector
+   was supplied.
 7. Risks, invalidation conditions, and data limitations.
 8. Source/provenance table.
 9. Embedded report context JSON.
@@ -43,7 +45,7 @@ Use valid JSON, HTML-safe escaping, and this minimum shape:
 {
   "schema_version": 1,
   "trade_date": "YYYY-MM-DD",
-  "report_type": "daily|market|stock|sector-screen",
+  "report_type": "daily|market|stock|low-active-leader|early-trend",
   "scope": {
     "symbols": ["600000"],
     "sector": "user-specified sector or null",

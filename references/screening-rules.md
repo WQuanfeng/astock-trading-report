@@ -1,8 +1,12 @@
-# Sector screening rules
+# Screening rules
 
-Run either screen only after the user explicitly names the sector. Use the
-sector's members from `a-stock-data`; do not replace it with a guessed concept
-or a broad market scan.
+Run **low active leader** only after the user explicitly names a sector. Use
+that sector's members from `a-stock-data`; do not replace it with a guessed
+concept.
+
+Run **early trend** across the eligible A-share universe and do not require a
+sector. If `a-stock-data` cannot establish full-universe coverage, disclose the
+actual universe used and do not describe the result as a market-wide ranking.
 
 ## Shared exclusion rules
 
@@ -49,6 +53,9 @@ criterion in the HTML.
 ## Early-trend candidates
 
 This is a **trend-continuation watch pool**, not a probability claim.
+
+Screen the eligible market-wide universe. Sector strength remains a confirmation
+factor for each stock, but is not a user-input filter or a prerequisite.
 
 ### Evidence to collect
 
