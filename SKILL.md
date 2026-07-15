@@ -67,10 +67,12 @@ Apply these rules before analysis:
 | `auto` date | Resolve to the latest completed A-share trading day. |
 | Explicit non-trading or incomplete trading date | Do not silently substitute another date; ask for a completed date. |
 | Invalid stock code/name | A standalone `stock` request stops without an analytical conclusion. A `daily` request skips that stock and records a quality warning. |
-| Missing market core data (index or breadth) | Set market posture to `insufficient data`; do not create directional scenarios. |
+| Missing core market input (index close, turnover, or breadth) | Set market posture to `insufficient data`; do not create directional scenarios. |
+| Missing sentiment input (limit-up pool, broken-board data, or prior-limit-up performance) | Omit the affected sentiment conclusion and record a quality warning; do not infer it from other metrics. |
 | Missing stock quote or K-line | Set that stock to `insufficient data`; do not create entry conditions. |
 | Missing announcements/news | State `unavailable`, not `no announcements/news`; lower confidence accordingly. |
 | Insufficient screen coverage or required signals | Do not rank the result as market-wide and do not select a candidate using incomplete required evidence. |
+| Source conflict, stale timestamp, impossible field, or incomplete coverage | Record a `quality_warning`; distinguish it from a real but unexplained market anomaly, which belongs in risks. |
 | Invalid T-1 context JSON | Ignore the prior report prose, mark verification `not_evaluable`, and continue with current data. |
 
 ## Previous trading-day context

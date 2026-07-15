@@ -26,3 +26,8 @@ selectively; do not load every component reference by default.
    mark that sub-section `not run: sector not specified`.
 7. Generate one report with every skipped section and quality limitation made
    explicit.
+
+Determine screen eligibility from the screening rules and collected evidence
+before writing market/stock narrative. Do not add or remove candidates because
+of earlier qualitative conclusions; use the market regime only to describe the
+candidate's trading environment.

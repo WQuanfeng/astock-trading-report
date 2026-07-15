@@ -31,6 +31,8 @@ This is a **low-position active-leader watch pool**, not a long-term buy list.
 - Repeated historical limit-up or other objectively available active-trading
   evidence.
 - Historical sector-strength evidence during the stock's strong periods.
+- Recent three-to-six-month activity and a current activation signal, such as
+  meaningful price/volume expansion relative to its own recent baseline.
 - Current two-year price position/drawdown or other available low-position
   measure.
 - Current financial snapshot, cash-flow/earnings condition where available, and
@@ -46,9 +48,10 @@ proxy must combine:
 2. strong relative performance during a documented sector-strength period; and
 3. adequate current liquidity.
 
-It must also have a clearly stated low-position/basing condition and no obvious
-fundamental or event-risk disqualifier. Explain every included and excluded
-criterion in the HTML.
+Require both a historical qualification (the first three criteria above) and a
+current activation/low-position condition. Do not treat a low but inactive
+stock as a candidate. Explain every included and excluded criterion in the
+HTML.
 
 ## Early-trend candidates
 

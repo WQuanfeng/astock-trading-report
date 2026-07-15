@@ -52,8 +52,14 @@ guaranteed-profit language.
 
 ## Context schema v2
 
-Use valid JSON and ISO 8601 timestamps. IDs are stable within one report and
-are referenced by evaluation/provenance fields.
+Use valid JSON and ISO 8601 timestamps. IDs must remain stable across matching
+reports and are referenced by evaluation/provenance fields.
+
+Use these deterministic IDs across reports: `market-risk-on`,
+`market-neutral`, `market-risk-off`, `stock-{symbol}`, `early-trend-{symbol}`,
+and `low-active-leader-{symbol}`. Build `report_id` as
+`{report_type}-{YYYYMMDD}`, adding `-{symbol}` or `-{normalized-sector}` when
+that scope is required. Do not invent alternate ID formats.
 
 ```json
 {
@@ -138,6 +144,9 @@ are referenced by evaluation/provenance fields.
 
 ### `risks[]`, `quality_warnings[]`, and `provenance[]`
 
-Each risk/warning has `code` and `message`. Every provenance item has `id`,
-`dataset`, `source`, `data_date`, `fetched_at`, `unit`, and `adjustment`.
-Use an empty array when none applies; never omit a required array.
+Each risk/warning has `code` and `message`. Use `quality_warnings` only for
+source conflicts, stale/incomplete data, or implausible fields. Record a real
+but unexplained price/volume move in `risks` with an
+`unexplained_market_anomaly` code. Every provenance item has `id`, `dataset`,
+`source`, `data_date`, `fetched_at`, `unit`, and `adjustment`. Use an empty
+array when none applies; never omit a required array.
