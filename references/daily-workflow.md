@@ -7,7 +7,7 @@ reference。
 
 1. 始终读取 `market-workflow.md` 并收集其大盘清单。
 2. 仅当用户提供一只或多只自选股时读取 `stock-workflow.md`。
-3. 运行全市场上升初段筛选时，仅阅读 `screening-rules.md` 的
+3. 运行上升初段候选发现时，仅阅读 `screening-rules.md` 的
    **上升初段候选**部分。
 4. 仅当用户指定板块时，阅读 `screening-rules.md` 的
    **低位活跃龙头候选**部分。
@@ -18,10 +18,11 @@ reference。
 
 1. 解析已完成交易日并校验输入。
 2. 收集大盘数据并确定数据质量。
-3. 读取 `prior-report-rules.md`，随后在可用时验证匹配的 T-1 `daily`
+3. 读取 `prior-report-rules.md`，随后在可用时结构化复盘匹配的 T-1 `daily`
    context。
 4. 仅对用户提供的自选股运行个股分析。
-5. 仅当用户明确请求全市场上升初段候选时运行筛选，并披露实际覆盖范围；否则将
+5. 仅当用户明确请求上升初段候选时，在可验证股票池中运行候选发现，并披露股票池
+   来源和实际覆盖范围；否则将
    该区块标为 `not run: early trend not requested`。
 6. 仅对用户指定板块运行低位活跃龙头筛选；未指定时将该区块标为
    `not run: sector not specified`。

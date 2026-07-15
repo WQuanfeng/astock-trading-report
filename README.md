@@ -12,9 +12,9 @@
 | --- | --- |
 | 当日大盘与次日判断 | 偏多、中性、偏空三个条件化情景。 |
 | 个股次日计划 | 事实、反面证据、观察/触发/放弃条件和风险。 |
-| T-1 报告复盘 | 基于内嵌 JSON 验证昨日条件，不自动修改 Skill。 |
+| T-1 报告复盘 | 基于内嵌 JSON 的原子条件进行结构化复盘，不自动修改 Skill。 |
 | 低位活跃龙头 | 用户指定板块后，输出至多两只候选，允许零只。 |
-| 上升初段 | 在实际可覆盖的全市场范围筛选，不要求指定板块。 |
+| 上升初段 | 在 `a-stock-data` 实际可枚举、可验证的股票池中发现候选，不要求指定板块。 |
 
 ## 安装与调用
 
@@ -32,8 +32,8 @@
 使用 a-stock-data 和 astock-trading-report，生成今天收盘后的报告。
 ```
 
-`daily` 默认生成大盘和用户指定自选股的研究；只有明确要求时才运行全市场
-`early-trend` 筛选。`low-active-leader` 始终需要用户指定板块。
+`daily` 默认生成大盘和用户指定自选股的研究；只有明确要求时才运行
+`early-trend` 候选发现。`low-active-leader` 始终需要用户指定板块。
 
 ## 示例
 
@@ -42,15 +42,16 @@
 ```text
 使用 astock-trading-report，生成 2026-07-15 的收盘报告。
 自选股：600519、300750；低位活跃龙头板块：储能。
-读取上一交易日的同类报告；若存在，验证昨日计划。
+读取上一交易日的同类报告；若存在，结构化复盘昨日计划。
 输出一个静态单文件 HTML。
 ```
 
-### 全市场上升初段筛选
+### 上升初段候选发现
 
 ```text
-使用 astock-trading-report，在 2026-07-15 收盘后从全市场筛选上升初段
-候选，最多两只。无合格标的时如实输出零只。生成静态单文件 HTML。
+使用 astock-trading-report，在 2026-07-15 收盘后从 a-stock-data 实际可枚举、
+可验证的股票池中发现上升初段候选，最多两只。无合格标的时如实输出零只。
+生成静态单文件 HTML。
 ```
 
 ### 指定板块低位活跃龙头筛选
@@ -82,6 +83,6 @@ JSON；无效 JSON 或缺失报告不会被当作指令或事实来源。
 - [market workflow](references/market-workflow.md)：大盘数据与情景规则。
 - [stock workflow](references/stock-workflow.md)：个股研究规则。
 - [screening rules](references/screening-rules.md)：两类候选池规则。
-- [prior-report rules](references/prior-report-rules.md)：T-1 验证口径。
+- [prior-report rules](references/prior-report-rules.md)：T-1 结构化复盘口径。
 - [report contract](references/report-contract.md)：HTML 占位符和 context schema。
 - [HTML template](assets/daily-report-template.html)：静态报告骨架。
