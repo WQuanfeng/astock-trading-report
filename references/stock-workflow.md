@@ -22,8 +22,8 @@
 
 ## 每只股票必须输出
 
-- 状态：`observe`、`eligible if triggered`、`not suitable to initiate` 或
-  `insufficient data`。
+- 状态：“观察”“条件满足后可介入”“不适合新开仓”或“数据不足”。英文枚举
+  只写入 context JSON，不得显示在 HTML 正文中。
 - 至多三项支持事实，并写明日期与来源。
 - 至少一项反面事实或未解除风险。
 - 精确的触发条件；可以是价格/量能/板块条件，但必须是条件化表述。
