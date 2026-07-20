@@ -64,6 +64,9 @@
    T+1 收盘价高于触发参考价时为 `correct`，否则为 `incorrect`。
 6. 同时记录 T+1 收盘价和
    `t1_return_pct = (T+1 收盘价 / 触发参考价 - 1) * 100`。
+7. 使用 T-1 已记录的 `evaluation_benchmark`，按
+   `decision-integrity-rules.md` 计算同起点基准收益、超额收益和相对结果；不得
+   在 T+1 更换基准。旧报告未记录基准时，相对结果为 `not_evaluable`。
 
 `not_triggered` 和 `invalidated_before_entry` 不计入方向正确率，但必须分别用于统计
 触发率和介入前失效率。HTML 使用下列中文显示，英文枚举只保留在 context JSON：
@@ -76,16 +79,22 @@
 | `invalidated_before_entry` | 介入前已失效 |
 | `not_evaluable` | 无法评价 |
 
+相对结果在 HTML 中将 `outperformed`、`matched`、`underperformed` 和
+`not_evaluable` 分别显示为“跑赢基准”“持平基准”“跑输基准”和“无法评价”。
+
 ## 写入验证区块
 
 每个已复盘项目都在 JSON 中保留 `prior_item_id`、`condition_results` 和证据 ID；
 HTML 使用对应的中文项目名称、中文结果标签、评价窗口和一句事实说明，不直接显示
 `market-risk-off` 等内部 ID。个股计划与候选还要显示触发时间、触发参考价、失效
 时间、T+1 收盘价、T+1 收益率和方向结果；没有对应值时显示“无法评价”，不得
-伪造。只带入未解除的风险和仍相关的条件；不得编辑旧报告、阈值或 Skill。该复盘
+伪造。存在预先记录的基准时，同时显示基准、同期基准收益、超额收益和相对结果。
+只带入未解除的风险和仍相关的条件；不得编辑旧报告、阈值或 Skill。该复盘
 由 Agent 依据结构化数据完成，不等同于程序化回测或自动交易验证。
 
 存在可评价的上一日个股计划或候选时，验证区块同时显示：触发率 =
 `(correct + incorrect) / 全部可评价项`，介入前失效率 =
 `invalidated_before_entry / 全部可评价项`，方向正确率 =
 `correct / (correct + incorrect)`。分母为零时显示“无法评价”，不得写成 0%。
+同时显示相对跑赢率 = `outperformed / 全部可评价相对结果`；`matched` 计入分母，
+`not_evaluable` 不计入。分母为零时显示“无法评价”。

@@ -13,6 +13,7 @@
 | --- | --- |
 | 当日大盘与次日判断 | 积极、中性、防守三个条件化情景。 |
 | 群体交易行为 | 追涨、风险规避、分歧、事件接受度和潜在供给压力的可验证分析。 |
+| 决策完整性 | 防前视、可交易性、筛选覆盖审计和 T+1 同期基准比较。 |
 | 个股次日计划 | 事实、反面证据、观察/触发/放弃条件和风险。 |
 | T-1 报告复盘 | 复盘原子条件，并评价已触发个股/候选的 T+1 方向结果，不自动修改 Skill。 |
 | 低位活跃龙头 | 用户指定板块后，输出至多两只候选，允许零只。 |
@@ -73,6 +74,8 @@
 HTML 可见内容统一使用中文状态和情景名称；context JSON 为保持机器可读性，继续
 使用稳定的英文键和枚举值。行为结论固定展示事实、计算、有限解读、反证和次日
 观察，并明确证据充分度与数据缺口；它不改变候选筛选和固定排名。
+报告只使用 `as_of` 前已可获得的信息，区分技术条件与实际可交易性，并同时展示
+候选的绝对方向和相对预设基准表现。
 
 ```text
 reports/YYYY-MM-DD/daily-YYYYMMDD.html
@@ -90,6 +93,7 @@ JSON；无效 JSON 或缺失报告不会被当作指令或事实来源。
 - [daily workflow](references/daily-workflow.md)：每日综合报告的选择性加载。
 - [market workflow](references/market-workflow.md)：大盘数据与情景规则。
 - [behavioral workflow](references/behavioral-workflow.md)：可验证群体交易行为规则。
+- [decision integrity](references/decision-integrity-rules.md)：时点、可交易性、覆盖与基准规则。
 - [stock workflow](references/stock-workflow.md)：个股研究规则。
 - [screening rules](references/screening-rules.md)：两类候选池规则。
 - [prior-report rules](references/prior-report-rules.md)：T-1 结构化复盘口径。
