@@ -15,6 +15,9 @@
 不兼容或范围不匹配时，将所有历史项在 HTML 中显示为“无法评价”，并继续使用
 当日数据；JSON 仍使用 `not_evaluable`。
 
+新版 v3 context 应包含 `behavioral_analysis`。兼容读取缺少该字段的早期 v3
+报告，但只能将行为复盘显示为“无法评价”，不得影响原有情景、个股或候选复盘。
+
 ## 复盘原子条件
 
 使用上一份报告记录的 `evaluation_window`，不得使用窗口外的信息复盘计划。
@@ -39,6 +42,11 @@
 
 对大盘情景，只比较已记录的原子情景条件。对个股计划和候选，按数据时间戳比较
 原子介入条件与失效条件；无法从记录条件建立先后关系或结果时，不得自行推断。
+
+对行为项目，只评价 `observation_condition_rules` 中已记录的原子条件，并把结果
+写入 `previous_plan_verification`。行为项目省略 `selection_outcome`；其确认与否
+不得计入候选触发率、介入前失效率或方向正确率。其 `outcome` 只使用
+`confirmed`、`not_confirmed` 或 `not_evaluable`。
 
 ## 评价候选触发后的方向结果
 
